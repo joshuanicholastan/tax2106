@@ -95,7 +95,7 @@ const INITIAL_STATE = {
         GEN_EXP: { field: "GEN_EXP", title: "General Expenses", value: "1249.51" },
         GST: { field: "GST", title: "GST", value: "2193.06" },
         HR_EXP: { field: "HR_EXP", title: "Human Resource Expense", value: "271.72" },
-        IT_DEV: { field: "IT_DEV", title: "IT Development", value: 0 },
+        IT_DEV: { field: "IT_DEV", title: "IT Development", value: "0" },
         MAINT: { field: "MAINT", title: "Repair and Maintenance", value: "800" },
         MED_EXP: { field: "MED_EXP", title: "Medical Expenses", value: "800" },
         MED_INS: { field: "MED_INS", title: "Medical Insurance", value: "600" },

@@ -32,17 +32,77 @@ function getSteps() {
     return ['Step 1', 'Step 2', 'Step 3', 'Step 4'];
 }
 
+const form1_1 = ['REV', 'PIC', 'OI', 'DISP_FA', 'BANK_ACC', 'RE', 'SHARE_CAP',];
+const form1_2 = ['CA', 'EA', 'ACC_REC', 'PREPAY', 'FFE', 'ACCUM_DEPR_FFE', 'COMP', 'ACCUM_DEPR_CE'];
+const form2_1 = ['ACC_PAYABLE', 'GST', 'CONV_NOTES', 'COS', 'AG_COMM', 'ADMIN' ];
+const form2_2 = ['NDE_ENT', 'NDE_GEN_EXP','NDE_TRAINING', 'NDE_MED','ADVERT',];
+const form3_1 = [ 'BANK_FEES', 'SECT_FEES', 'DEPR_FFE', 'DEPR_CE','ENT', 'CORP_GIFT',];
+const form3_2 = [ 'GEN_EXP', 'FINE', 'UTLS', 'OFF_EXP', 'WEB_SERV', 'RENT'];
+const form4_1 = ['HR_EXP', 'SALAR', 'DIR_REMUN', 'CPF', 'ALLOWANCE_TPT', 'SKILL_DEV', 'TRAINING', 'MED_EXP'];
+const form4_2 = ['MED_INS', 'TEL_INT', 'ROUNDING', 'COMM', 'MAINT', 'IT_DEV', 'TPT', 'PRIV_CAR_EXP'];
+
+
+
 class TaxCalculator extends Component {
 
     state = { activeStep: 0, stageError: '' };
+    
+    checkField = (arr) => {
+        let pass = true;
+        const emptyFields = [];
+        for (let i = 0; i < arr.length; i++) {
+            if (!this.props.taxInfo[arr[i]].value){
+                pass = false;
+                emptyFields.push(this.props.taxInfo[arr[i]].title + ", ")
+            }
+        }
+        if (!pass) alert(emptyFields + "is not filled");
+        return pass;
+    }
 
     handleNext = () => {
-        console.log(">>>>>" + this.props.taxOutput);
+        //console.log(">>>>>" + this.props.taxOutput);
         switch (this.state.activeStep) {
-            case 0: this.setState(state => ({ activeStep: state.activeStep + 1, stageError: '' })); break;
-            case 1: this.setState(state => ({ activeStep: state.activeStep + 1, stageError: '' })); break;
-            case 2: this.setState(state => ({ activeStep: state.activeStep + 1, stageError: '' })); break;
-            case 3: this.setState(state => ({ activeStep: state.activeStep + 1, stageError: '' })); break;
+            case 0:
+                if (this.checkField(form1_1.concat(form1_2))) {
+                    this.setState(state => ({ activeStep: state.activeStep + 1, stageError: '' }));
+                    break;
+                }
+                else {
+                    alert("Please fill all fields!");
+                    window.scroll(0,0);
+                    break;
+                }
+            case 1: 
+                if (this.checkField(form2_1.concat(form2_2))) {
+                    this.setState(state => ({ activeStep: state.activeStep + 1, stageError: '' }));
+                    break;
+                }
+                else {
+                    alert("Please fill all fields!");
+                    window.scroll(0,0);
+                    break;
+                }
+            case 2: 
+                if (this.checkField(form3_1.concat(form3_2))) {
+                    this.setState(state => ({ activeStep: state.activeStep + 1, stageError: '' }));
+                    break;
+                }
+                else {
+                    alert("Please fill all fields!");
+                    window.scroll(0,0);
+                    break;
+                }
+            case 3: 
+                if (this.checkField(form4_1.concat(form4_2))) {
+                    this.setState(state => ({ activeStep: state.activeStep + 1, stageError: '' }));
+                    break;
+                }
+                else {
+                    alert("Please fill all fields!");
+                    window.scroll(0,0);
+                    break;
+                            }
             default: break;
         }
     };
@@ -178,7 +238,8 @@ class TaxCalculator extends Component {
                     label={this.props.taxInfo[arr[i]].title}
                     field={this.props.taxInfo[arr[i]].field}
                     value={this.props.taxInfo[arr[i]].value}
-                    changed={this.changeInput} />;
+                    changed={this.changeInput}
+                    />;
                 fields.push(current);
             }
             catch{
@@ -190,14 +251,14 @@ class TaxCalculator extends Component {
     }
 
     getStepContent = (stepIndex) => {
-        const form1P1Fields = this.createField(['REV', 'PIC', 'OI', 'DISP_FA', 'BANK_ACC', 'RE', 'SHARE_CAP',]);
-        const form1P2Fields = this.createField(['CA', 'EA', 'ACC_REC', 'PREPAY', 'FFE', 'ACCUM_DEPR_FFE', 'COMP', 'ACCUM_DEPR_CE']);
-        const form2P1Fields = this.createField(['ACC_PAYABLE', 'GST', 'CONV_NOTES', 'COS', 'AG_COMM', 'ADMIN' ]);
-        const form2P2Fields = this.createField(['NDE_ENT', 'NDE_GEN_EXP','NDE_TRAINING', 'NDE_MED','ADVERT',]);
-        const form3P1Fields = this.createField([ 'BANK_FEES', 'SECT_FEES', 'DEPR_FFE', 'DEPR_CE','ENT', 'CORP_GIFT',]);
-        const form3P2Fields = this.createField([ 'GEN_EXP', 'FINE', 'UTLS', 'OFF_EXP', 'WEB_SERV', 'RENT']);
-        const form4P1Fields = this.createField(['HR_EXP', 'SALAR', 'DIR_REMUN', 'CPF', 'ALLOWANCE_TPT', 'SKILL_DEV', 'TRAINING', 'MED_EXP']);
-        const form4P2Fields = this.createField(['MED_INS', 'TEL_INT', 'ROUNDING', 'COMM', 'MAINT', 'IT_DEV', 'TPT', 'PRIV_CAR_EXP']);
+        const form1P1Fields = this.createField(form1_1);
+        const form1P2Fields = this.createField(form1_2);
+        const form2P1Fields = this.createField(form2_1);
+        const form2P2Fields = this.createField(form2_2);
+        const form3P1Fields = this.createField(form3_1);
+        const form3P2Fields = this.createField(form3_2);
+        const form4P1Fields = this.createField(form4_1);
+        const form4P2Fields = this.createField(form4_2);
 
         switch (stepIndex) {
             case 0: //FORM PAGE 1
@@ -304,6 +365,10 @@ class TaxCalculator extends Component {
     changeInput = (event) => {
         this.props.newTaxInfo({ field: event.target.name, value: event.target.value })
     }
+
+    componentDidUpdate = () => {
+        window.scrollTo(0, 0)
+      }
 
     render() {
         const { classes } = this.props;

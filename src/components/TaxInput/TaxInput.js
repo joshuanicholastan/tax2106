@@ -2,7 +2,10 @@ import React from 'react';
 import classes from './TaxInput.module.css';
 
 const taxInput = (props) => {
-
+    let valid = [classes.inputField];
+    if (!props.value){
+        valid = [classes.redInputField];
+    }
     const years =[];
     
     for(var i=2015;i<=(new Date()).getFullYear();i++){
@@ -30,10 +33,11 @@ const taxInput = (props) => {
                 <p className = {classes.inputLabel}>{props.label}</p>
                 <input 
                     required
-                    className = {classes.inputField} 
+                    className = {valid} 
                     type = 'number'
                     name = {props.field}
                     value = {props.value}
+                    placeholder = {props.placeholder}
                     onChange = {props.changed}/>
             </div>
         );
